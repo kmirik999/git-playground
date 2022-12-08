@@ -3,11 +3,7 @@ import random
 
 
 def congratulate_user():
-<<<<<<< HEAD
-    print(f"Congratulations, you win!!!! your words: {guesses}")
-=======
-    print(f" you win!!!! your words: {guesses}")
->>>>>>> conflict
+    print(f"Congratulations, you won! your words: {guesses}")
 
 
 def is_game_over():
@@ -29,12 +25,20 @@ word = words[random.randrange(0, len(words))]
 print(f"Can you make up {WORDS_TO_WIN} words from letters in word provided by me?")
 print(f"Your word is '{word}'")
 
-
 while not is_game_over():
+    exist = False
     guess = input("Your next take: ")
     if guess in full_list:
-        guessed += 1
-        guesses.append(guess)
+        for x in guesses:
+            if x == guess:
+                exist = True
+
+        if not exist:
+            guessed += 1
+            guesses.append(guess)
+        else:
+            print(f"Repeat input. That word is exist.")
+            continue
         if guessed == WORDS_TO_WIN:
             congratulate_user()
             exit()
@@ -42,3 +46,6 @@ while not is_game_over():
     else:
         errors += 1
         print(f"Oops :( No such word, you have {ERRORS_TO_LOSE - errors} lives more")
+
+if ERRORS_TO_LOSE - errors == 0:
+    print(f"LOSE!!")
